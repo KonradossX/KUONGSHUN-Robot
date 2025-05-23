@@ -1,28 +1,7 @@
-// enum CommandID {
-//   // Speed
-//   MOTOR_BOTH_SPEED   = 0x01,
-//   MOTOR_LEFT_SPEED   = 0x02,
-//   MOTOR_RIGHT_SPEED  = 0x03,
-
-//   // Direction
-//   MOTOR_DIRECTION    = 0x04,
-//   CAM_SERVO_VALUE    = 0x05,
-
-//   // Sensors
-//   LINE_SENSOR_LEFT   = 0x0A,
-//   LINE_SENSOR_MID    = 0x0B,
-//   LINE_SENSOR_RIGHT  = 0x0C,
-//   ULTRASONIC_SENSOR  = 0x0D,
-//   OBSTACLE_DETECTION = 0x0E,
-//   BATTERY_VOLTAGE    = 0x0F,
-
-//   // Other
-//   COMMAND_PING      = 0xFF
-// };
-
 void reciveDataFromESP() {
   if(mySerial.available() >= 4) {
     lastCommandTimestamp = millis();
+    stopForEmergnecy = false;
     
     Serial.print("Data! ");
     Serial.println(mySerial.available());
@@ -182,3 +161,32 @@ void sendBateryVoltage() {
 
   sendDataToESP(BATTERY_VOLTAGE, voltageByte);
 }
+
+#define maxPower 100000.0
+void sendBatteryPower() {
+  float power_mW = readBatteryPower();  
+  if (power_mW > maxPower)
+    power_mW = maxPower;
+
+  if (power_mW < 0)
+    power_mW = 0;
+
+  byte powerByte = byte(round((power_mW / maxPower) * 255));
+
+  sendDataToESP(BATTERY_POWER, powerByte);
+}
+
+#define maxCurrent 1500
+void sendBatteryCurrent() {
+  float current_mA = readBatteryCurrent();  // np. 845 mA
+  if (current_mA > maxCurrent)
+    current_mA = maxCurrent;
+
+  if (current_mA < 0)
+    current_mA = 0;
+
+  byte currentByte = byte(round((current_mA / maxCurrent) * 255));
+
+  sendDataToESP(BATTERY_CURRENT, currentByte);
+}
+

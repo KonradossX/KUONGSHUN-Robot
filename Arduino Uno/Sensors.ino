@@ -55,22 +55,23 @@ byte lineTrackSensorDigital() {
   return byteValue;
 }
 
-//TODO ADD THIS
 float readBateryVoltage() { 
-  Serial.println("TODO: ABS");
-
-
   //Pamietaj ze analogRead() daje liczbe z zakresu 0-1023
-  float voltage = 7.6;
+  // float voltage = 7.6;
+  float shuntVoltage  = batteryMonitoringModule.getShuntVoltage_mV();
+  float busVoltage = batteryMonitoringModule.getBusVoltage_V();
 
-
-
-
-
-
-
-  return voltage;
+  return busVoltage + (shuntVoltage * 0.001);
 }
+
+float readBatteryPower() {
+  return batteryMonitoringModule.getPower_mW();
+}
+
+float readBatteryCurrent() {
+  return batteryMonitoringModule.getCurrent_mA();
+}
+
 
 
 
