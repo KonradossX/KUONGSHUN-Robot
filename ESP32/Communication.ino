@@ -14,10 +14,15 @@ enum CommandID {
   LINE_SENSOR_RIGHT  = 0x0C,
   ULTRASONIC_SENSOR  = 0x0D,
   OBSTACLE_DETECTION = 0x0E,
-  BATTERY_VOLTAGE    = 0x0F,
+
+    // Power
+  BATTERY_VOLTAGE    = 0x10,
+  BATTERY_POWER      = 0x11,
+  BATTERY_CURRENT    = 0x12,
 
   // Other
-  TORCH_VALUE       = 0x10,
+  TORCH_VALUE       = 0x20,
+  EMERGENCY_STOP    = 0xF0,
   COMMAND_PING      = 0xFF
 };
 
@@ -178,6 +183,7 @@ void receiveDataFromArduino() {
 
 void handleDataFromArduino(int idByte, int dataByte) {
   switch(idByte) {
+    case EMERGENCY_STOP:
     case MOTOR_BOTH_SPEED:
     case MOTOR_LEFT_SPEED:
     case MOTOR_RIGHT_SPEED:
@@ -188,6 +194,8 @@ void handleDataFromArduino(int idByte, int dataByte) {
     case ULTRASONIC_SENSOR:
     case OBSTACLE_DETECTION:
     case BATTERY_VOLTAGE:
+    case BATTERY_POWER:
+    case BATTERY_CURRENT:
     case CAM_SERVO_VALUE:
     // case COMMAND_PING:
       Serial.print("Arduino zgłasza funckję: ");
