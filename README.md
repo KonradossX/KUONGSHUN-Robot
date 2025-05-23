@@ -30,7 +30,7 @@ This project enables remote control of a robot using a computer keyboard, built 
 - 📡 Sensor updates from Arduino:  
   - Ultrasonic distance sensor  
   - Line-following sensor  
-  - Battery status (currently simulated — real battery monitor module required)
+  - Battery status from INA219 module
 
 ## To Do / Improvements
 
