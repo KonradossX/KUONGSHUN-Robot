@@ -35,8 +35,9 @@ This project enables remote control of a robot using a computer keyboard, built 
 ## To Do / Improvements
 
 - [ ] Enhance communication reliability and error handling  
-- [ ] Add real battery monitoring module  
-- [ ] Add simple autonomy (like stoping on obstacle)
+- [x] Add real battery monitoring module  
+- [ ] Add simple autonomy (like stopping on obstacle)
+
 
 
 
