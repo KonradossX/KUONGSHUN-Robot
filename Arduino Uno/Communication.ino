@@ -162,7 +162,7 @@ void sendBateryVoltage() {
   sendDataToESP(BATTERY_VOLTAGE, voltageByte);
 }
 
-#define maxPower 100000.0
+#define maxPower 8000.0
 void sendBatteryPower() {
   float power_mW = readBatteryPower();  
   if (power_mW > maxPower)
@@ -176,7 +176,7 @@ void sendBatteryPower() {
   sendDataToESP(BATTERY_POWER, powerByte);
 }
 
-#define maxCurrent 1500
+#define maxCurrent 1000
 void sendBatteryCurrent() {
   float current_mA = readBatteryCurrent();  // np. 845 mA
   if (current_mA > maxCurrent)
