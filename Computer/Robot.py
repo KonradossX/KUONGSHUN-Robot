@@ -323,24 +323,24 @@ class Robot:
         self.color_battery_power = (0, 255, 0) if (self.battery_percent > 20) else (255, 0, 0)
 
     def handle_battery_power_data(self, value: int) -> None:
-        max_power_mW = 5500  # 5.5 W max
+        max_power_mW = 8000.0
         if not (0 <= value <= 255):
             raise ValueError(f"Battery power value {value} out of range (0-255)")
 
         power_mW = (value / 255) * max_power_mW
-        power_W = power_mW / 1000  # zamiana na W
+        power_W = power_mW / 1000 
         
-        self.battery_power = round(power_W, 3)  # np. 2.345 W
+        self.battery_power = round(power_W, 3) 
 
     def handle_battery_current_data(self, value: int) -> None:
-        max_current_mA = 1100  # max 1100 mA
+        max_current_mA = 1000  
         if not (0 <= value <= 255):
             raise ValueError(f"Battery current value {value} out of range (0-255)")
 
         current_mA = (value / 255) * max_current_mA
-        current_A = current_mA / 1000  # zamiana na A
+        current_A = current_mA / 1000  
         
-        self.battery_current = round(current_A, 3)  # np. 0.875 A}
+        self.battery_current = round(current_A, 3)  
 
     def handle_torch_data(self, value: int) -> None:
         print("Handle torch state")
