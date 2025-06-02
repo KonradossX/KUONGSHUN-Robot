@@ -1,0 +1,11 @@
+# Wi-Fi Passwords
+ESP32/Secrets.ino
+
+# Assembly manuals
+KUONGSHUN AD176 ESP32 WiFi Camera Mecanum 4WD Smart Robot Car/
+
+# Temp and trash
+__pycache__/
+*.pyc
+.DS_Store
+.vscode/

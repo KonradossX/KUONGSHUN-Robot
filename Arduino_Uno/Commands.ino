@@ -14,15 +14,9 @@ enum CommandID {
   LINE_SENSOR_RIGHT  = 0x0C,
   ULTRASONIC_SENSOR  = 0x0D,
   OBSTACLE_DETECTION = 0x0E,
-
-  // Power
-  BATTERY_VOLTAGE    = 0x10,
-  BATTERY_POWER      = 0x11,
-  BATTERY_CURRENT    = 0x12,
+  BATTERY_VOLTAGE    = 0x0F,
 
   // Other
-  // TORCH_VALUE       = 0x20,
-  EMERGENCY_STOP    = 0xF0,
   COMMAND_PING      = 0xFF
 };
 
@@ -97,8 +91,6 @@ bool commandUnknown() {
 bool setAngleOfCamera(int angle) {
   camServo.write(angle);
   sendCamServoValue(angle);
-
-  sendDataToESP(CAM_SERVO_VALUE, angle);
   return true;
 }
 
@@ -115,8 +107,6 @@ bool setDirection(byte direction) {
   //TODO valid direction
   chassis.direction = direction;
   chassis.MotorsWrite();
-
-  sendDataToESP(MOTOR_DIRECTION, direction);
   return true;
 }
 
@@ -135,19 +125,6 @@ bool setSpeed(byte n, byte speed) {
 
   chassis.MotorsWrite();
   return true;
-}
-
-void emergencyStop(int typeOfEmergency) {
-  stopRobot();
-  sendSpeed();
-
-  if (typeOfEmergency == 1) {
-    Serial.println("EMERGENCY STOP - NO COMMANDS!");
-    sendDataToESP(EMERGENCY_STOP, 1);
-    return;
-  } 
-  
-  sendDataToESP(EMERGENCY_STOP, 0);
 }
 
 bool stopRobot() {

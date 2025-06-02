@@ -7,15 +7,10 @@ void setup() {
   // digitalWrite(LEDpin, LOW);
   camServo.attach(servoPin);
   chassis.setupPins();
-  ulstrasonicSetupPins();
-  lineTrackSensorSetupPins();
+  // ulstrasonicSetupPins();
+  // lineTrackSensorSetupPins();
 
-  if (! batteryMonitoringModule.begin()) {
-    Serial.println("Failed to find INA219 chip");
-    while (1) { delay(10); }
-  }
-
-  // setAngleOfCamera(90);
+  setAngleOfCamera(90);
 
 
   delay(interval);
@@ -49,12 +44,11 @@ void loop() {
   unsigned long currentMillis = millis();
 
   for (int n = 0; n < numberOfEvents; n++) {
-    if (stopForEmergnecy == false) {
-      if (currentMillis - lastCommandTimestamp >= emergencyStopInterval) {
-        emergencyStop(1);
-        stopForEmergnecy = true;
-      }
-    } 
+    if (currentMillis - lastCommandTimestamp >= emergnecyStopInterval) {
+      stopRobot();
+      sendSpeed();
+      Serial.println("EMERGENCY STOP - NO COMMANDS!");
+    }
 
     if (currentMillis - previousMillis[n] >= interval) {
       // Serial.print("Times: ");
@@ -79,8 +73,6 @@ void loop() {
         case 2:
           // Serial.println("Send batery voltage");
           sendBateryVoltage();
-          sendBatteryPower();
-          sendBatteryCurrent();
           break;
 
         default:

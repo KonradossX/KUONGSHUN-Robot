@@ -1,7 +1,5 @@
 #include <Servo.h>
 #include <SoftwareSerial.h>
-#include <Wire.h> // Batery Monitoring Module
-#include <Adafruit_INA219.h> // Batery Monitoring Module
 #include "TM1651.h" // Battery Display
 
 // Debug led pin
@@ -38,7 +36,6 @@ const long interval = 5000;
 
 unsigned long lastCommandTimestamp = 0;
 const long emergencyStopInterval = 5000;
-bool stopForEmergnecy = false;
 
 
 
@@ -309,5 +306,5 @@ Servo camServo;
 Command receivedCommand;
 Chassis chassis;
 
-Adafruit_INA219 batteryMonitoringModule; // I2C adress 40
+
 
